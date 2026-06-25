@@ -1,5 +1,9 @@
 # Membership Dashboard
 
+## Live Demo
+
+🚀 https://membership-dashboard-z226.vercel.app/
+
 A complete, production-grade Membership Directory and Analytics Dashboard web application built for the Software Engineering Internship Take-Home Challenge. The application features live metrics reporting, instant client-side search/filter/sort, a validated member onboarding form, automatic dark mode support, simulated mock API delays, and local storage state persistence.
 
 ---
