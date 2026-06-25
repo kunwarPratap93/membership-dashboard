@@ -43,11 +43,11 @@ A complete, production-grade Membership Directory and Analytics Dashboard web ap
 ## Tech Stack
 
 * **React.js** (v19) - Component state and virtual DOM.
-* **TypeScript** - Strongly typed schemas, interfaces, and parameter safety.
+* **JavaScript (ES6+)** - Modern JavaScript for clean, maintainable code.
 * **Vite** (v8) - Lightning-fast build tool and local HMR dev server.
 * **Tailwind CSS** (v4) - Utility-first CSS compiling via first-class `@tailwindcss/vite` plugin.
 * **React Hook Form** (v7) - Uncontrolled inputs and form rendering performance.
-* **Zod** - Declaration validation and TypeScript type inference.
+* **Zod** - Runtime validation for runtime safety.
 * **Lucide React** - High-quality SVG icon packs.
 
 ---
@@ -100,52 +100,52 @@ src/
 │
 ├── components/
 │   ├── dashboard/
-│   │   ├── StatCard.tsx        # Individual KPI metric card with trends
-│   │   └── DashboardCards.tsx  # Grid wrapper coordinating stat cards
+│   │   ├── StatCard.jsx        # Individual KPI metric card with trends
+│   │   └── DashboardCards.jsx  # Grid wrapper coordinating stat cards
 │   │
 │   ├── members/
-│   │   ├── MembersTable.tsx    # Responsive table/stacked list for directory
-│   │   ├── SearchBar.tsx       # Instant search input field
-│   │   ├── FilterBar.tsx       # Search query, filter, and mobile sort toolbar
-│   │   ├── EmptyState.tsx      # Shown when search/filters return zero results
-│   │   └── LoadingState.tsx    # Skeleton loader animations for table and cards
+│   │   ├── MembersTable.jsx    # Responsive table/stacked list for directory
+│   │   ├── SearchBar.jsx       # Instant search input field
+│   │   ├── FilterBar.jsx       # Search query, filter, and mobile sort toolbar
+│   │   ├── EmptyState.jsx      # Shown when search/filters return zero results
+│   │   └── LoadingState.jsx    # Skeleton loader animations for table and cards
 │   │
 │   ├── forms/
-│   │   └── AddMemberForm.tsx   # Add member form with Zod schema validation
+│   │   └── AddMemberForm.jsx   # Add member form with Zod schema validation
 │   │
 │   ├── layout/
-│   │   ├── Header.tsx          # Top bar with title, theme toggler, and notifications
-│   │   ├── Sidebar.tsx         # Sidebar for desktop and drawer panel on mobile
-│   │   └── Layout.tsx          # Main shell combining Sidebar, Header, and Workspace
+│   │   ├── Header.jsx          # Top bar with title, theme toggler, and notifications
+│   │   ├── Sidebar.jsx         # Sidebar for desktop and drawer panel on mobile
+│   │   └── Layout.jsx          # Main shell combining Sidebar, Header, and Workspace
 │   │
 │   └── ui/
-│       ├── Button.tsx          # Configurable button with loading states
-│       ├── Input.tsx           # Standardized input with error states
-│       ├── Select.tsx          # Custom select dropdown
-│       └── Card.tsx            # Styled container card with hover/glow effects
+│       ├── Button.jsx          # Configurable button with loading states
+│       ├── Input.jsx           # Standardized input with error states
+│       ├── Select.jsx          # Custom select dropdown
+│       └── Card.jsx            # Styled container card with hover/glow effects
 │
 ├── data/
-│   └── mockMembers.ts          # Baseline mock members (20 members, 60% active, 40% inactive)
+│   └── mockMembers.js          # Baseline mock members (20 members, 60% active, 40% inactive)
 │
 ├── hooks/
-│   ├── useMembers.ts           # Hook managing state, optimistic updates, and mock API calls
-│   └── useDarkMode.ts          # Hook managing dark mode state and localStorage sync
+│   ├── useMembers.js           # Hook managing state, optimistic updates, and mock API calls
+│   └── useDarkMode.js          # Hook managing dark mode state and localStorage sync
 │
 ├── services/
-│   └── mockApi.ts              # Latency-simulated client-side mock CRUD API using localStorage
+│   └── mockApi.js              # Latency-simulated client-side mock CRUD API using localStorage
 │
 ├── types/
-│   └── member.ts               # Core TypeScript interfaces and type definitions
+│   └── member.js               # Core data types and type definitions
 │
 ├── utils/
-│   ├── filterMembers.ts        # Filtering utility helper
-│   └── sortMembers.ts          # Sorting utility helper
+│   ├── filterMembers.js        # Filtering utility helper
+│   └── sortMembers.js          # Sorting utility helper
 │
 ├── pages/
-│   └── Dashboard.tsx           # Dashboard coordinating page
+│   └── Dashboard.jsx           # Dashboard coordinating page
 │
-├── App.tsx                     # App entry with Layout and page mounts
-├── main.tsx                    # React mounting target
+├── App.jsx                     # App entry with Layout and page mounts
+├── main.jsx                    # React mounting target
 └── index.css                   # Tailwind entry with CSS variable customizations
 ```
 
@@ -159,8 +159,8 @@ src/
    Recognizing that desktop tables are too wide for mobile screens, we build a stacked card list layout for mobile screens. This layout includes a mobile-friendly select dropdown for sorting, while the desktop table supports clicking column headers.
 3. **Tailwind CSS v4 CSS-First Configuration**:
    We utilized Tailwind CSS v4, which deprecates the verbose `tailwind.config.js` and moves config variables directly inside the CSS stylesheet (`src/index.css`) using native `@theme` directives. This makes the workspace cleaner and builds faster.
-4. **Verbatim Module Syntax Conformance**:
-   The compiler configuration has verbatim module syntax enabled (`"verbatimModuleSyntax": true` in `tsconfig.json`). To ensure clean imports and prevent unused bundle exports, we strictly separate TypeScript type imports using `import type`.
+4. **JavaScript ES6+ Module Syntax**:
+   The project uses standard ES6 module syntax with `import` and `export` statements for clean module organization and tree-shaking optimization.
 
 ---
 
@@ -176,12 +176,10 @@ During this challenge, I leveraged a variety of professional resources:
 
 ## Challenges Faced
 
-* **Vite React 19 / TypeScript 5 Type Alignments**:
-  Integrating React 19's TypeScript types with Vite generated compile warnings regarding legacy node types. I resolved this by cleaning up unused namespaces and updating typing exports.
-* **`verbatimModuleSyntax` Strict Compiler Configuration**:
-  The default Vite template configuration has strict compiler rules where type imports must be declared as type imports. A standard import would cause compile-time failures. I refactored import structures across all 15+ files to use `import type { ... }` explicitly.
 * **Simulating Server Latency in Client-side Hooks**:
   Simulating asynchronous API latency (e.g., loading state spinners) while supporting instant search filtering was a challenge. I resolved this by keeping a master state list `allMembers` loaded via API and using derived calculations in a `useMemo` block, allowing filtering to happen instantly while mutations show realistic loaders.
+* **TypeScript to JavaScript Conversion**:
+  The project was successfully converted from TypeScript to vanilla JavaScript while maintaining 100% functionality. All type annotations were removed, and the build configuration was updated to support `.js` and `.jsx` files. This simplified the development experience while preserving all runtime behavior and validation through Zod.
 
 ---
 
